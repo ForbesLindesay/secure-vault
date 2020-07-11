@@ -4,6 +4,8 @@ const browserify = require('browserify');
 const browser = require('browser-run');
 const concat = require('concat-stream');
 
+jest.setTimeout(30_000);
+
 const BROWSER_TEST_FILENAME =
   __dirname + '/../../lib/__tests__/test-browser.js';
 
