@@ -1,0 +1,9 @@
+{
+  "extends": "@forbeslindesay/tsconfig",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "lib": ["DOM", "ES2020"]
+  },
+  "include": ["src"]
+}
