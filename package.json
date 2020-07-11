@@ -21,7 +21,7 @@
     "lint": "tslint './src/**/*.{ts,tsx}' -t verbose -p .",
     "prettier:write": "prettier --ignore-path .gitignore --write './**/*.{md,json,yaml,js,jsx,ts,tsx}'",
     "prettier:check": "prettier --ignore-path .gitignore --list-different './**/*.{md,json,yaml,js,jsx,ts,tsx}'",
-    "test": "tsc && jest && node test-import"
+    "test": "tsc && jest && node test-node-import"
   },
   "dependencies": {
     "byte-base64": "^1.0.2",
