@@ -1,0 +1,9 @@
+{
+  "extends": ["@forbeslindesay/tsconfig/tslint"],
+  "linterOptions": {
+    "exclude": ["coverage/", "dist/", "**/node_modules/**"]
+  },
+  "rules": {
+    "no-console": false
+  }
+}
