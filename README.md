@@ -2,6 +2,8 @@
 
 Secure, password based symetric encryption. When you create a "vault" it can be used to encrypt and decrypt multiple messages with a single password.
 
+> N.B. server side usage requires at least node.js version 14
+
 [![Rolling Versions](https://img.shields.io/badge/Rolling%20Versions-Enabled-brightgreen)](https://rollingversions.com/ForbesLindesay/secure-vault)
 
 ## Installation
