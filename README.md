@@ -119,7 +119,10 @@ Unlocking a vault:
 ```ts
 import {unlockVault, password, lockedVault} from 'secure-vault';
 
-const unlocked = unlockVault(lockedVault(lockedStr), password('My secret password'));
+const unlocked = unlockVault(
+  lockedVault(lockedStr),
+  password('My secret password'),
+);
 ```
 
 #### `unlockedVault.encrypt(secretData: SecretData) => Promise<EncryptedData>`
@@ -127,7 +130,9 @@ const unlocked = unlockVault(lockedVault(lockedStr), password('My secret passwor
 You can call `unlockedVault.encrypt` to encrypt some secret data:
 
 ```ts
-const encryptedStr = encryptedDataToString(await unlockedVault.encrypt(secretData('My Secret Message')));
+const encryptedStr = encryptedDataToString(
+  await unlockedVault.encrypt(secretData('My Secret Message')),
+);
 ```
 
 #### `unlockedVault.decrypt(encryptedData: EncryptedData) => Promise<SecretData>`
@@ -135,10 +140,16 @@ const encryptedStr = encryptedDataToString(await unlockedVault.encrypt(secretDat
 You can call `unlockedVault.encrypt` to decrypt some encrtyped data:
 
 ```ts
-const mySecretMessage = secretDataToString(await unlockedVault.decrypt(encryptedData(encryptedStr)));
+const mySecretMessage = secretDataToString(
+  await unlockedVault.decrypt(encryptedData(encryptedStr)),
+);
 ```
 
 #### `unlockedVault.lock() => LockedVault`
 
 You can get a locked vault for storage by calling `unlockedVault.lock()`.
 
+## Notes regarding security
+
+- Secure Vault uses a randomly generated 96 bit IV. This means you should not encrypt more than 2^32 secrets using one vault: https://crypto.stackexchange.com/a/66500/723
+- Secure Vault usese a 128 bit salt. This should be acceptable for most use cases: https://stackoverflow.com/a/5197921/272958

@@ -1,4 +1,4 @@
-import {
+const {
   createVault,
   secretData,
   password,
@@ -8,9 +8,9 @@ import {
   encryptedDataToString,
   encryptedData,
   lockedVault,
-} from '../server';
+} = require('secure-vault');
 
-export default async function run() {
+exports.testServer = async function run() {
   const unlocked = await createVault(password('My Password'));
   const locked = unlocked.lock();
 
@@ -35,11 +35,11 @@ export default async function run() {
       message: 'Incorrect decrypted message: ' + decrypted,
     };
   }
-}
+};
 
-export async function testDecryptClient(
-  lockedStr: string,
-  encryptedStr: string,
+exports.testDecryptClient = async function testDecryptClient(
+  lockedStr,
+  encryptedStr,
 ) {
   const second = await unlockVault(
     lockedVault(lockedStr),
@@ -58,4 +58,4 @@ export async function testDecryptClient(
       message: 'Incorrect decrypted message: ' + decrypted,
     };
   }
-}
+};

@@ -8,26 +8,9 @@ import {
   encryptedDataToString,
   encryptedData,
   lockedVault,
-} from '../browser';
+} from 'secure-vault';
 
-const SERVER_LOCKED = '<SERVER_LOCKED>';
-const SERVER_CIPHERTEXT = '<SERVER_CIPHERTEXT>';
-
-async function run() {
-  const serverVault = await unlockVault(
-    lockedVault(SERVER_LOCKED),
-    password('My Password'),
-  );
-  const serverDecrypted = secretDataToString(
-    await serverVault.decrypt(encryptedData(SERVER_CIPHERTEXT)),
-  );
-  if (serverDecrypted !== 'My Message') {
-    return {
-      success: false,
-      message: 'Incorrect decrypted server message: ' + serverDecrypted,
-    };
-  }
-
+export default async function run() {
   const unlocked = await createVault(password('My Password'));
   const locked = unlocked.lock();
 
@@ -53,18 +36,23 @@ async function run() {
     };
   }
 }
-run().then(
-  (result) => {
-    console.log(JSON.stringify(result));
-    window.close();
-  },
-  (ex) => {
-    console.log(
-      JSON.stringify({
-        success: false,
-        message: (ex.stack || ex.message || ex).toString(),
-      }),
-    );
-    window.close();
-  },
-);
+
+export async function testDecryptClient(lockedStr, encryptedStr) {
+  const second = await unlockVault(
+    lockedVault(lockedStr),
+    password('My Password'),
+  );
+  const decrypted = secretDataToString(
+    await second.decrypt(encryptedData(encryptedStr)),
+  );
+  if (decrypted === 'My Message') {
+    return {
+      success: true,
+    };
+  } else {
+    return {
+      success: false,
+      message: 'Incorrect decrypted message: ' + decrypted,
+    };
+  }
+}
