@@ -1,5 +1,5 @@
 import Opaque from 'ts-opaque';
-import {Environment, Salt} from './types';
+import {Environment, Salt} from '../types';
 
 export {Salt};
 export type Pbkdf2Key = Opaque<{}, 'Pbkdf2Key'>;

@@ -12,13 +12,8 @@ import {
   encryptedDataToString,
   lockedVault,
   lockedVaultToString,
-} from './utils/types';
-import {
-  VERSION,
-  SALT_LENGTH,
-  PBKDF2_ITERATIONS,
-  IV_LENGTH,
-} from './utils/constants';
+} from './types';
+import {VERSION, SALT_LENGTH, PBKDF2_ITERATIONS, IV_LENGTH} from './constants';
 
 import environment, {Pbkdf2Key, Salt} from './environment/index';
 

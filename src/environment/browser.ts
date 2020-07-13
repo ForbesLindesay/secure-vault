@@ -1,14 +1,12 @@
 import Opaque, {create} from 'ts-opaque';
-import {Environment, IV, Salt, Ciphertext} from './types';
-import {SecretData} from '../utils/types';
+import {SecretData, IV, Environment, Salt, Ciphertext} from '../types';
 import {
   IV_LENGTH,
   SALT_LENGTH,
-  PBKDF2_ITERATIONS,
   KEY_LENGTH,
   DIGEST_HASH,
   CIPHER,
-} from '../utils/constants';
+} from '../constants';
 
 // tslint:disable-next-line: strict-type-predicates
 if (typeof window === 'undefined') {
@@ -31,7 +29,7 @@ const BrowserEnvironment: Environment<Pbkdf2Key> = {
     return create<Salt>(crypto.getRandomValues(new Uint8Array(SALT_LENGTH)));
   },
 
-  async getKey(password, salt): Promise<Pbkdf2Key> {
+  async getKey(password, salt, {iterations}): Promise<Pbkdf2Key> {
     const keyMaterial = await Promise.resolve(
       crypto.subtle.importKey('raw', password, {name: 'PBKDF2'}, false, [
         'deriveBits',
@@ -44,7 +42,7 @@ const BrowserEnvironment: Environment<Pbkdf2Key> = {
         {
           name: 'PBKDF2',
           salt: salt,
-          iterations: PBKDF2_ITERATIONS,
+          iterations,
           hash: DIGEST_HASH.browser,
         },
         keyMaterial,

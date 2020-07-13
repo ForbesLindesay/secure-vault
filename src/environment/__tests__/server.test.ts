@@ -1,6 +1,6 @@
 import ServerEnvironment from '../server';
-import {password, secretData, secretDataToString} from '../../utils/types';
-import {PBKDF2_ITERATIONS} from '../../utils/constants';
+import {password, secretData, secretDataToString} from '../../types';
+import {PBKDF2_ITERATIONS} from '../../constants';
 
 jest.setTimeout(10_000);
 test('ServerEnvironment', async () => {

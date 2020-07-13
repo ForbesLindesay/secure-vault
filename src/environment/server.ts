@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import Opaque, {create} from 'ts-opaque';
-import {Environment, IV, Salt, Ciphertext} from './types';
-import {Password, SecretData} from '../utils/types';
+import {SecretData, IV, Environment, Salt, Ciphertext} from '../types';
 import {
   IV_LENGTH,
   SALT_LENGTH,
@@ -9,7 +8,7 @@ import {
   DIGEST_HASH,
   CIPHER,
   AUTH_TAG_LENGTH,
-} from '../utils/constants';
+} from '../constants';
 
 /**
  * An encryption key derrived from a password. This must be kept private.
@@ -21,14 +20,10 @@ function getIV(): IV {
 }
 
 const ServerEnvironment: Environment<Pbkdf2Key> = {
-  getSalt(): Salt {
+  getSalt() {
     return create<Salt>(crypto.randomBytes(SALT_LENGTH));
   },
-  async getKey(
-    password: Password,
-    salt: Salt,
-    {iterations}: {iterations: number},
-  ): Promise<Pbkdf2Key> {
+  async getKey(password, salt, {iterations}) {
     return await new Promise<Pbkdf2Key>((resolve, reject) => {
       crypto.pbkdf2(
         password,
@@ -43,7 +38,7 @@ const ServerEnvironment: Environment<Pbkdf2Key> = {
       );
     });
   },
-  async encrypt(key: Pbkdf2Key, message: SecretData) {
+  async encrypt(key, message) {
     const iv = getIV();
     const cipher = (crypto as any).createCipheriv(CIPHER.server, key, iv, {
       authTagLength: AUTH_TAG_LENGTH,
@@ -57,7 +52,7 @@ const ServerEnvironment: Environment<Pbkdf2Key> = {
     );
     return {ciphertext, iv};
   },
-  async decrypt(key: Pbkdf2Key, {iv, ciphertext}): Promise<SecretData> {
+  async decrypt(key, {iv, ciphertext}) {
     const cipher = (crypto as any).createDecipheriv(CIPHER.server, key, iv, {
       authTagLength: AUTH_TAG_LENGTH,
     });
