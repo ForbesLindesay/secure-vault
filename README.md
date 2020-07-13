@@ -153,3 +153,6 @@ You can get a locked vault for storage by calling `unlockedVault.lock()`.
 
 - Secure Vault uses a randomly generated 96 bit IV. This means you should not encrypt more than 2^32 secrets using one vault: https://crypto.stackexchange.com/a/66500/723
 - Secure Vault usese a 128 bit salt. This should be acceptable for most use cases: https://stackoverflow.com/a/5197921/272958
+- Secure Vault uses 200,000 iterations for PBKDF2. At time of writing this is approximately 2x the default for [lastpass](https://support.logmeininc.com/lastpass/help/about-password-iterations-lp030027#:~:text=By%20default%2C%20the%20number%20of,process%20in%20your%20Account%20Settings.)
+
+These values are not configureable, but the encrypted data from Secure Vault is versioned, so we will be able to change the defaults in a non-breaking way once these defaults no longer provide an appropriate level of security.

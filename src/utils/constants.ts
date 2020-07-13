@@ -4,7 +4,7 @@
 export const VERSION = 1;
 export const SALT_LENGTH = 16;
 export const IV_LENGTH = 12;
-export const PBKDF2_ITERATIONS = 100000;
+export const PBKDF2_ITERATIONS = 200_000;
 export const DIGEST_HASH = {browser: 'SHA-256', server: 'sha256'} as const;
 
 export const KEY_LENGTH = 256;
