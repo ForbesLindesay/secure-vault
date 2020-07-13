@@ -13,6 +13,19 @@ const {
 
 const BROWSER_TEST_FILENAME = 'test-scripts/browser.js';
 
+function setServerDataForClient(result) {
+  const src = readFileSync(BROWSER_TEST_FILENAME, 'utf8');
+
+  writeFileSync(
+    BROWSER_TEST_FILENAME,
+    src.split('// BEGIN_SERVER_INPUT')[0] +
+      `// BEGIN_SERVER_INPUT\n` +
+      `const SERVER_LOCKED = '${result.locked}';\n` +
+      `const SERVER_CIPHERTEXT = '${result.ciphertext}';\n` +
+      `// END_SERVER_INPUT` +
+      src.split('// END_SERVER_INPUT')[1],
+  );
+}
 test('test in server', async () => {
   const result = await testServer();
   if (!result.success) {
@@ -22,15 +35,7 @@ test('test in server', async () => {
   equal(typeof result.locked, 'string');
   equal(typeof result.ciphertext, 'string');
 
-  const src = readFileSync(BROWSER_TEST_FILENAME, 'utf8');
-  writeFileSync(
-    BROWSER_TEST_FILENAME,
-    src
-      .split('<SERVER_LOCKED>')
-      .join(result.locked)
-      .split('<SERVER_CIPHERTEXT>')
-      .join(result.ciphertext),
-  );
+  setServerDataForClient(result);
 });
 
 let locked;
@@ -76,15 +81,7 @@ test('test in server (cjs)', async () => {
   equal(typeof result.locked, 'string');
   equal(typeof result.ciphertext, 'string');
 
-  const src = readFileSync(BROWSER_TEST_FILENAME, 'utf8');
-  writeFileSync(
-    BROWSER_TEST_FILENAME,
-    src
-      .split('<SERVER_LOCKED>')
-      .join(result.locked)
-      .split('<SERVER_CIPHERTEXT>')
-      .join(result.ciphertext),
-  );
+  setServerDataForClient(result);
 });
 
 test('test in browser (using cjs node data)', async () => {

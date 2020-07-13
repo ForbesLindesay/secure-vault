@@ -10,10 +10,12 @@ const {
   lockedVault,
 } = require('../');
 
+// BEGIN_SERVER_INPUT
 const SERVER_LOCKED =
-  'AWyV5XAFiA4Km08GNjWcwTCj4aUdcgH5Ss/DQEITdm48lh/x9mMFWzQyiaKKr+y3T71vejIIUFsrYNCpWA==';
+  'Ac8Ol3d0zfC5cLfOlibmgIduGVDtSQLVneE67/F6IT49c/StXxkpjsnk0/2+vn6LIn25p697Daa+4Ef6Pw==';
 const SERVER_CIPHERTEXT =
-  'ATzpb/zLuLZ0nyTscf4n5jxsTs+CcZmRZb0MgjXz9lgbxaHGG+dI';
+  'ARQOj6TZRGufpmTQVwr5YwCOJwGr9h5XDczWeIQFq2ypGI2NmaZM';
+// END_SERVER_INPUT
 
 async function run() {
   const serverVault = await unlockVault(
