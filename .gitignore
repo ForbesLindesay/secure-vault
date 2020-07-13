@@ -88,3 +88,5 @@ __generated__/
 .idea
 
 buildinfo.json
+
+.size-snapshot.json

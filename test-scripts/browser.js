@@ -1,4 +1,4 @@
-import {
+const {
   createVault,
   secretData,
   password,
@@ -8,10 +8,12 @@ import {
   encryptedDataToString,
   encryptedData,
   lockedVault,
-} from '../browser';
+} = require('../');
 
-const SERVER_LOCKED = '<SERVER_LOCKED>';
-const SERVER_CIPHERTEXT = '<SERVER_CIPHERTEXT>';
+// BEGIN_SERVER_INPUT
+const SERVER_LOCKED = '<locked>';
+const SERVER_CIPHERTEXT = '<ciphertext>';
+// END_SERVER_INPUT
 
 async function run() {
   const serverVault = await unlockVault(
