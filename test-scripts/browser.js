@@ -11,10 +11,8 @@ const {
 } = require('../');
 
 // BEGIN_SERVER_INPUT
-const SERVER_LOCKED =
-  'Ac8Ol3d0zfC5cLfOlibmgIduGVDtSQLVneE67/F6IT49c/StXxkpjsnk0/2+vn6LIn25p697Daa+4Ef6Pw==';
-const SERVER_CIPHERTEXT =
-  'ARQOj6TZRGufpmTQVwr5YwCOJwGr9h5XDczWeIQFq2ypGI2NmaZM';
+const SERVER_LOCKED = '<locked>';
+const SERVER_CIPHERTEXT = '<ciphertext>';
 // END_SERVER_INPUT
 
 async function run() {

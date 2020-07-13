@@ -115,3 +115,7 @@ test('test decrypt value from client on server (cjs)', async () => {
   }
   equal(result.success, true);
 });
+
+test('reset server data', () => {
+  setServerDataForClient({locked: '<locked>', ciphertext: '<ciphertext>'});
+});
